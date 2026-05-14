@@ -1,41 +1,96 @@
 import { useState } from 'react';
 import { useLang } from '../context/LanguageContext.jsx';
 
+const CONTACT_EMAIL = 'info@jstworks.com';
+
 export default function Quote() {
   const { t, lang } = useLang();
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [feedback, setFeedback] = useState({ text: '', error: false });
+  const [feedback, setFeedback] = useState({
+    text: '',
+    error: false,
+    fallbackHref: '',
+    copied: false,
+  });
 
   const update = (field) => (e) =>
     setForm((f) => ({ ...f, [field]: e.target.value }));
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    const { name, email, message } = form;
+    const name = form.name.trim();
+    const email = form.email.trim();
+    const message = form.message.trim();
 
-    if (!name.trim() || !email.trim() || !message.trim()) {
+    if (!name || !email || !message) {
       setFeedback({
         text: lang === 'ko' ? '모든 항목을 입력해주세요.' : 'Please fill out every field.',
         error: true,
+        fallbackHref: '',
+        copied: false,
       });
       return;
     }
 
-    const subject = `[JSTWORKS Inquiry] ${name.trim()}`;
-    const body =
-      `Name: ${name.trim()}\n` +
-      `Email: ${email.trim()}\n\n` +
-      `${message.trim()}\n`;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setFeedback({
+        text:
+          lang === 'ko'
+            ? '올바른 이메일 주소를 입력해주세요.'
+            : 'Please enter a valid email address.',
+        error: true,
+        fallbackHref: '',
+        copied: false,
+      });
+      return;
+    }
 
-    window.location.href =
-      `mailto:info@jstworks.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const subject = `[JSTWORKS Inquiry] ${name}`;
+    const body =
+      `Name: ${name}\n` +
+      `Email: ${email}\n\n` +
+      `${message}\n`;
+
+    const mailtoLink =
+      `mailto:${CONTACT_EMAIL}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(body)}`;
+
+    // 메일 클라이언트가 안 떴을 때를 대비해, 본문 + 메일 주소를 클립보드에 복사
+    let copied = false;
+    try {
+      const clipText =
+        `To: ${CONTACT_EMAIL}\n` +
+        `Subject: ${subject}\n\n` +
+        `${body}`;
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(clipText);
+        copied = true;
+      }
+    } catch {
+      // 클립보드 접근 실패는 무시
+    }
+
+    // mailto 트리거 — window.location.href 가 가장 호환성이 좋음
+    try {
+      window.location.href = mailtoLink;
+    } catch {
+      // 일부 환경에서 throw 가능 — 그래도 fallback 링크로 안내
+    }
 
     setFeedback({
       text:
         lang === 'ko'
-          ? '메일 클라이언트를 열었습니다. 전송을 완료해주세요.'
-          : 'Your email client has opened — please complete the send.',
+          ? `메일 클라이언트가 열리지 않으면 아래 버튼을 눌러주세요. 내용은 클립보드에 ${
+              copied ? '복사되었습니다.' : '복사하지 못했습니다 — 직접 복사해주세요.'
+            }`
+          : `If your email client did not open, use the button below. The message has ${
+              copied ? 'been copied to your clipboard.' : 'NOT been copied — please copy it manually.'
+            }`,
       error: false,
+      fallbackHref: mailtoLink,
+      copied,
     });
   };
 
@@ -59,9 +114,13 @@ export default function Quote() {
           <div className="inquiry-form-col">
             <h3>{t('Send an Inquiry', '문의하기')}</h3>
             <p className="inquiry-intro">
+              {t('Reach us directly at ', '문의는 ')}
+              <a className="inquiry-email-link" href={`mailto:${CONTACT_EMAIL}`}>
+                {CONTACT_EMAIL}
+              </a>
               {t(
-                "Fill out the form below and we'll receive your message at info@jstworks.com via your email client.",
-                '아래 양식을 작성해주시면, 메일 클라이언트를 통해 info@jstworks.com 으로 문의가 전송됩니다.'
+                ' — or fill out the form below and we will reply shortly.',
+                ' 로 직접 보내주시거나, 아래 양식을 작성해주시면 빠르게 답변드리겠습니다.'
               )}
             </p>
 
@@ -90,12 +149,26 @@ export default function Quote() {
               <button type="submit" className="btn-primary">
                 {t('Send Inquiry', '문의 보내기')}
               </button>
-              <p
+
+              <div
                 className={`form-feedback${feedback.error ? ' error' : ''}`}
                 aria-live="polite"
               >
-                {feedback.text}
-              </p>
+                <p>{feedback.text}</p>
+                {feedback.fallbackHref && (
+                  <a
+                    className="inquiry-fallback-link"
+                    href={feedback.fallbackHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t(
+                      `Open mail to ${CONTACT_EMAIL}`,
+                      `${CONTACT_EMAIL} 으로 메일 열기`
+                    )}
+                  </a>
+                )}
+              </div>
             </form>
           </div>
         </div>

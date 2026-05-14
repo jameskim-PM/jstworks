@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JSTWorks — Vision & Market 데모 (참고용)</title>
+<style>
+  /* ====== 데모 전용 스타일 — 실제 적용 시에는 기존 페이지의 스타일을 사용하세요 ====== */
+  :root {
+    --bg: #fafaf7;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --text-muted: #5a5a5a;
+    --border: #e5e3dc;
+    --accent: #2563eb;       /* 포인트 컬러 — 기존 페이지 액센트로 교체 */
+    --accent-soft: #eff4ff;
+    --accent-2: #16a34a;     /* Creative 트랙 */
+    --accent-3: #ea580c;     /* Place 트랙 */
+    --radius: 12px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo", "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* navbar */
+  header.nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: saturate(140%) blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { font-weight: 700; letter-spacing: -.02em; }
+  .menu { display: flex; gap: 28px; }
+  .menu a {
+    color: var(--text); text-decoration: none; font-size: 15px;
+    padding: 6px 2px; border-bottom: 2px solid transparent;
+    transition: border-color .2s ease, color .2s ease;
+  }
+  .menu a:hover { border-bottom-color: var(--accent); color: var(--accent); }
+  .menu a.is-new { font-weight: 600; color: var(--accent); }
+
+  /* section */
+  section { padding: 96px 0; border-top: 1px solid var(--border); }
+  section:first-of-type { border-top: 0; }
+  .eyebrow { display: inline-block; font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft); padding: 6px 10px; border-radius: 999px; }
+  h1, h2 { letter-spacing: -.02em; }
+  h2 { font-size: 34px; margin: 16px 0 8px; }
+  .lede { font-size: 17px; color: var(--text-muted); font-style: italic; }
+
+  /* VISION */
+  .vision-grid {
+    display: grid; grid-template-columns: minmax(280px, 460px) 1fr; gap: 56px;
+    margin-top: 40px; align-items: start;
+  }
+  .vision-image {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius);
+    background:
+      linear-gradient(135deg, #f6f3ec 0%, #ece6d6 60%, #d8d0bb 100%);
+    border: 1px dashed #c9c2ac;
+    display: flex; align-items: center; justify-content: center;
+    color: #8a8266; font-size: 14px; text-align: center; padding: 24px;
+  }
+  .vision-image span { max-width: 220px; }
+
+  .pillar { padding: 22px 0; border-bottom: 1px solid var(--border); }
+  .pillar:last-child { border-bottom: 0; }
+  .pillar h3 { margin: 0 0 6px; font-size: 22px; }
+  .pillar h3 .qmark { color: var(--accent); font-weight: 700; }
+  .pillar .ask { color: var(--text-muted); font-style: italic; margin-bottom: 12px; }
+  .pillar ul { margin: 0; padding-left: 20px; }
+  .pillar li { margin: 6px 0; }
+
+  /* MARKET */
+  .market-intro { max-width: 760px; }
+  .tracks {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px;
+  }
+  .track {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow);
+  }
+  .track h3 { margin: 0 0 6px; font-size: 22px; }
+  .track .tag {
+    display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); margin-bottom: 12px; letter-spacing: .04em;
+  }
+  .track.creative .tag { background: #ecfdf5; color: var(--accent-2); }
+  .track.place .tag    { background: #fff7ed; color: var(--accent-3); }
+  .track .role { color: var(--text-muted); margin: 0 0 18px; font-size: 14px; }
+
+  .channels { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .ch {
+    display: grid; grid-template-columns: 130px 1fr; gap: 14px;
+    padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px;
+    background: #fff;
+  }
+  .ch strong { font-size: 15px; }
+  .ch span   { color: var(--text-muted); font-size: 14px; }
+
+  .group-label {
+    margin: 18px 0 8px; font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+
+  .imc-callout {
+    margin-top: 36px; padding: 24px 28px;
+    background: var(--accent-soft); border-radius: var(--radius);
+    border-left: 4px solid var(--accent);
+  }
+  .imc-callout strong { font-size: 17px; }
+  .imc-callout ul { margin: 8px 0 0 18px; padding: 0; color: var(--text); }
+
+  footer { padding: 48px 0; color: var(--text-muted); font-size: 13px; text-align: center; }
+
+  /* responsive */
+  @media (max-width: 820px) {
+    section { padding: 64px 0; }
+    h2 { font-size: 26px; }
+    .vision-grid { grid-template-columns: 1fr; gap: 28px; }
+    .tracks { grid-template-columns: 1fr; }
+    .ch { grid-template-columns: 110px 1fr; }
+    .menu { gap: 14px; }
+    .menu a { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="brand">JSTWorks</div>
+    <nav class="menu" aria-label="주 메뉴">
+      <a href="#intro">소개</a>
+      <a href="#vision" class="is-new">비전</a>
+      <a href="#brand">브랜드</a>
+      <a href="#creative">크리에이티브</a>
+      <a href="#market">시장</a>
+      <a href="#contact">문의</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ==================== VISION ==================== -->
+<section id="vision">
+  <div class="container">
+    <span class="eyebrow">Vision</span>
+    <h2>Vision Statement <small style="font-weight:500; color:var(--text-muted);">(Joshua Tree)</small></h2>
+    <p class="lede">"혹한의 사막에서도 마르지 않는 생명력으로, K-Heritage를 미국 땅에 깊게 뿌리내리다"</p>
+
+    <div class="vision-grid">
+      <!-- 이미지 슬롯 (사용자가 직접 교체) -->
+      <div class="vision-image" role="img" aria-label="Joshua Tree 이미지 자리">
+        <span>이 자리에 조슈아트리 이미지가 들어갑니다<br/><small>(추후 사용자가 직접 교체)</small></span>
+      </div>
+
+      <div>
+        <article class="pillar">
+          <h3>열매 <span class="qmark">(What?)</span></h3>
+          <p class="ask">고객이 즐길 최종 결과물은 무엇인가?</p>
+          <ul>
+            <li>합리적 프리미엄 (Affordable Premium) 고퀄리티 제품</li>
+            <li>종합 K-Pop Culture 포트폴리오 (Comprehensive Categories)</li>
+            <li>원스탑 쇼핑 경험 (한국제품 → K-GANADA)</li>
+          </ul>
+        </article>
+
+        <article class="pillar">
+          <h3>줄기 <span class="qmark">(How?)</span></h3>
+          <p class="ask">어떻게 현실로 만드는가?</p>
+          <ul>
+            <li>스토리 중심의 디지털 내러티브 (Digitally Narrative)</li>
+            <li>트렌드 큐레이션 속도 (Curated Trend-Speed)</li>
+            <li>투트랙 유통 및 커뮤니케이션 전략</li>
+          </ul>
+        </article>
+
+        <article class="pillar">
+          <h3>뿌리 <span class="qmark">(Why?)</span></h3>
+          <p class="ask">왜 K-GANADA인가?</p>
+          <ul>
+            <li>한국 Heritage의 강인한 전파 (조슈아트리의 생명력)</li>
+            <li>압도적 진정성 (Absolute Authenticity)</li>
+            <li>서울의 바이브 (Seoul Vibe)</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MARKET ==================== -->
+<section id="market">
+  <div class="container">
+    <span class="eyebrow">Market</span>
+    <h2>미국 시장에서 K-Culture를 전하는 두 개의 축</h2>
+    <p class="market-intro" style="color:var(--text-muted); margin-top:8px;">
+      JSTWorks는 미국 소비자를 대상으로 한국의 문화, 상품, 패션, 푸드 등 <strong>K-Culture 전 영역</strong>을
+      <strong>Creative(콘텐츠)</strong>와 <strong>Place(유통)</strong> 두 개의 트랙으로 전개합니다.
+    </p>
+
+    <div class="tracks">
+      <!-- Track 1: Creative -->
+      <div class="track creative">
+        <span class="tag">Track 1 · Creative</span>
+        <h3>콘텐츠 & 커뮤니케이션</h3>
+        <p class="role">창작물을 통해 K-Culture의 매력을 전달하고, 고객을 K-GANADA로 유인합니다. (광고 커뮤니케이션 최적화)</p>
+        <div class="channels">
+          <div class="ch"><strong>YouTube</strong>     <span>롱폼 스토리텔링 · 브랜드 다큐멘터리 · 제품 리뷰</span></div>
+          <div class="ch"><strong>Instagram</strong>   <span>비주얼 캠페인 · 릴스 · 라이프스타일 큐레이션</span></div>
+          <div class="ch"><strong>TikTok</strong>      <span>숏폼 트렌드 · 챌린지 · 바이럴 마케팅</span></div>
+          <div class="ch"><strong>Threads</strong>     <span>실시간 소통 · 커뮤니티 빌딩</span></div>
+          <div class="ch"><strong>Pinterest</strong>   <span>비주얼 디스커버리 · 무드보드 · 한국 라이프스타일 영감</span></div>
+        </div>
+      </div>
+
+      <!-- Track 2: Place -->
+      <div class="track place">
+        <span class="tag">Track 2 · Place</span>
+        <h3>유통 & 판매</h3>
+        <p class="role">미국 주요 커머스 플랫폼에 K-Culture 상품을 폭넓게 노출하고 원스탑 쇼핑 경험을 제공합니다. (세일즈 커뮤니케이션 / CRO 최적화)</p>
+
+        <div class="group-label">오픈마켓 · 글로벌 커머스</div>
+        <div class="channels">
+          <div class="ch"><strong>Amazon</strong>             <span>미국 최대 커머스 플랫폼 · 핵심 매출 채널</span></div>
+          <div class="ch"><strong>Etsy</strong>               <span>K-Craft · 굿즈 · 디자인 상품 특화</span></div>
+          <div class="ch"><strong>TikTok Shop Center</strong> <span>콘텐츠-커머스 연계 라이브 셀링</span></div>
+          <div class="ch"><strong>Meta Shop</strong>          <span>Instagram Shop · 소셜 커머스</span></div>
+          <div class="ch"><strong>eBay</strong>               <span>글로벌 리치 확대</span></div>
+        </div>
+
+        <div class="group-label">자사몰 (D2C)</div>
+        <div class="channels">
+          <div class="ch"><strong>K-GANADA</strong>           <span>Shopify 기반 자체 브랜드 스토어</span></div>
+          <div class="ch"><strong>JSTWorks</strong>           <span>회사 홈페이지 · 브랜드 허브</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imc-callout">
+      <strong>"하나의 일관된 메시지로, Creative와 Place를 통합 운영합니다."</strong>
+      <ul>
+        <li>IMC(Integrated Marketing Communications) 전략 기반</li>
+        <li>Creative에서 광고 커뮤니케이션, Place에서 세일즈 커뮤니케이션 최적화</li>
+        <li>미국 소비자에게 K-Culture의 진정성과 트렌드를 함께 전달</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © JSTWorks · 데모 페이지 — 실제 적용 시 기존 홈페이지의 디자인 토큰을 사용하세요.
+</footer>
+
+</body>
+</html>

@@ -3,6 +3,7 @@ import { useLang } from '../context/LanguageContext.jsx';
 
 const LINKS = [
   { id: 'hero',          en: 'About',    ko: '소개' },
+  { id: 'vision',        en: 'Vision',   ko: '비전' },
   { id: 'brand-vision',  en: 'Brand',    ko: '브랜드' },
   { id: 'brand-message', en: 'Creative', ko: '크리에이티브' },
   { id: 'market',        en: 'Market',   ko: '시장' },

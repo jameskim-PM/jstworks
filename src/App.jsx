@@ -1,6 +1,7 @@
 import { LanguageProvider } from './context/LanguageContext.jsx';
 import Nav from './components/Nav.jsx';
 import Hero from './components/Hero.jsx';
+import Vision from './components/Vision.jsx';
 import BrandVision from './components/BrandVision.jsx';
 import BrandMessage from './components/BrandMessage.jsx';
 import Market from './components/Market.jsx';
@@ -12,6 +13,7 @@ export default function App() {
     <LanguageProvider>
       <Nav />
       <Hero />
+      <Vision />
       <BrandVision />
       <BrandMessage />
       <Market />

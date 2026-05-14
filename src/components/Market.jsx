@@ -1,95 +1,189 @@
 import { useLang } from '../context/LanguageContext.jsx';
 import { useFadeIn } from '../hooks/useFadeIn.js';
 
-const CHANNELS = [
+const CREATIVE_CHANNELS = [
   {
-    num: 'Channel 01',
-    logo: '/Amazon_logo.svg',
-    logoClass: 'is-amazon',
-    name: 'Amazon',
-    sub: { en: 'Global E-commerce Leader', ko: '글로벌 이커머스 리더' },
-    title: { en: 'Amazon Distribution Route', ko: '아마존 판매 루트' },
-    desc: {
-      en: "Amazon's global logistics network enables us to reach customers worldwide. With FBA (Fulfillment by Amazon), we ensure fast delivery and reliable service for K-Brand products across major markets including North America, Europe, and Asia.",
-      ko: '아마존의 글로벌 물류 네트워크를 활용해 전 세계 고객에게 도달합니다. FBA(Fulfillment by Amazon)를 통해 북미, 유럽, 아시아의 주요 시장에서 K-브랜드 제품의 빠른 배송과 안정적인 서비스를 보장합니다.',
-    },
-    bullets: [
-      { en: 'Global reach across 20+ countries',       ko: '20개국 이상 글로벌 도달' },
-      { en: 'Prime delivery for a premium experience', ko: '프리미엄 경험을 위한 Prime 배송' },
-      { en: 'Brand Registry for full protection',      ko: '브랜드 보호를 위한 Brand Registry' },
-    ],
+    name: 'YouTube',
+    icon: '/icons/youtube-icon.png',
+    desc: { en: 'Long-form storytelling · brand documentary · product reviews', ko: '롱폼 스토리텔링 · 브랜드 다큐멘터리 · 제품 리뷰' },
   },
   {
-    num: 'Channel 02',
-    logo: '/Etsy_logo_lg_rgb.png',
-    logoClass: 'is-etsy',
-    name: 'Etsy',
-    sub: { en: 'Handcrafted & Unique Marketplace', ko: '핸드크래프트 & 유니크 마켓플레이스' },
-    title: { en: 'ETSY Distribution Network', ko: 'ETSY 유통망' },
-    desc: {
-      en: "ETSY's community of creative shoppers values authenticity and craftsmanship. It's the perfect platform to showcase K-Brand's unique cultural products and connect with customers who appreciate Korean design and quality.",
-      ko: 'ETSY의 크리에이티브 커뮤니티는 진정성과 장인정신을 중시합니다. K-브랜드의 독창적인 문화 상품을 소개하고, 한국적 디자인과 품질을 사랑하는 고객과 직접 연결되는 최적의 플랫폼입니다.',
-    },
-    bullets: [
-      { en: 'Focus on artisan and unique products',        ko: '장인과 유니크 제품 중심' },
-      { en: 'Direct connection with cultural enthusiasts', ko: '문화 애호가와의 직접 연결' },
-      { en: 'Story-driven brand presentation',             ko: '스토리 중심의 브랜드 프레젠테이션' },
-    ],
+    name: 'Instagram',
+    icon: '/icons/Instagram_icon.png',
+    desc: { en: 'Visual campaigns · Reels · lifestyle curation',                  ko: '비주얼 캠페인 · 릴스 · 라이프스타일 큐레이션' },
+  },
+  {
+    name: 'TikTok',
+    icon: '/icons/TikTok-icon.png',
+    desc: { en: 'Short-form trends · challenges · viral marketing',               ko: '숏폼 트렌드 · 챌린지 · 바이럴 마케팅' },
+  },
+  {
+    name: 'Threads',
+    icon: '/icons/Threads-icon.png',
+    desc: { en: 'Real-time conversation · community building',                    ko: '실시간 소통 · 커뮤니티 빌딩' },
+  },
+  {
+    name: 'Pinterest',
+    icon: '/icons/pinterest_logo.png',
+    desc: { en: 'Visual discovery · mood boards · Korean lifestyle inspiration',  ko: '비주얼 디스커버리 · 무드보드 · 한국 라이프스타일 영감' },
   },
 ];
 
-function ChannelCard({ data, index }) {
+const PLACE_OPEN_MARKETS = [
+  {
+    name: 'Amazon',
+    icon: '/icons/Amazon_logo.svg',
+    desc: { en: "America's largest commerce platform · core revenue channel", ko: '미국 최대 커머스 플랫폼 · 핵심 매출 채널' },
+  },
+  {
+    name: 'Etsy',
+    icon: '/icons/Etsy-Logo.png',
+    desc: { en: 'Specialized in K-Craft · goods · design products',           ko: 'K-Craft · 굿즈 · 디자인 상품 특화' },
+  },
+  {
+    name: 'TikTok Shop Center',
+    icon: '/icons/TikTok Shop icon.png',
+    desc: { en: 'Content-commerce live selling',                              ko: '콘텐츠-커머스 연계 라이브 셀링' },
+  },
+  {
+    name: 'Meta Shop',
+    icon: '/icons/meta-logo.png',
+    desc: { en: 'Instagram Shop · social commerce',                           ko: 'Instagram Shop · 소셜 커머스' },
+  },
+  {
+    name: 'eBay',
+    icon: '/icons/ebay-logo.png',
+    desc: { en: 'Expanded global reach',                                      ko: '글로벌 리치 확대' },
+  },
+];
+
+const PLACE_D2C = [
+  {
+    name: 'K-GANADA',
+    icon: '/icons/K-GANADA_LOGO.png',
+    desc: { en: 'Shopify-based proprietary brand store', ko: 'Shopify 기반 자체 브랜드 스토어' },
+  },
+  {
+    name: 'JSTWorks',
+    icon: '/JoshuaTreeWorks_Logo.png',
+    desc: { en: 'Corporate homepage · brand hub',        ko: '회사 홈페이지 · 브랜드 허브' },
+  },
+];
+
+function ChannelChip({ data }) {
   const { t } = useLang();
-  const ref = useFadeIn(index * 0.08);
   return (
-    <div className="channel-card" ref={ref}>
-      <div className="channel-visual">
-        <img className={`channel-logo ${data.logoClass}`} src={data.logo} alt={data.name} />
-        <div className="channel-visual-label">
-          <p>{t(data.sub.en, data.sub.ko)}</p>
+    <div className="track-channel">
+      <div className="track-channel-icon" aria-hidden={!data.icon}>
+        {data.icon && <img src={data.icon} alt={`${data.name} logo`} />}
+      </div>
+      <div className="track-channel-text">
+        <strong>{data.name}</strong>
+        <span>{t(data.desc.en, data.desc.ko)}</span>
+      </div>
+    </div>
+  );
+}
+
+function CreativeTrack() {
+  const { t } = useLang();
+  const ref = useFadeIn(0);
+  return (
+    <div className="track track-creative" ref={ref}>
+      <span className="track-tag">{t('Track 1 · Creative', 'Track 1 · 크리에이티브')}</span>
+      <h3 className="track-title">{t('Content & Communication', '콘텐츠 & 커뮤니케이션')}</h3>
+      <p className="track-role">
+        {t(
+          'Creative work delivers the appeal of K-Culture and draws customers to K-GANADA — optimized for brand communication.',
+          '창작물을 통해 K-Culture의 매력을 전달하고, 고객을 K-GANADA로 유인합니다. (광고 커뮤니케이션 최적화)'
+        )}
+      </p>
+      <div className="track-channels">
+        {CREATIVE_CHANNELS.map((c) => (
+          <ChannelChip key={c.name} data={c} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PlaceTrack() {
+  const { t } = useLang();
+  const ref = useFadeIn(0.08);
+  return (
+    <div className="track track-place" ref={ref}>
+      <span className="track-tag">{t('Track 2 · Place', 'Track 2 · 플레이스')}</span>
+      <h3 className="track-title">{t('Distribution & Sales', '유통 & 판매')}</h3>
+      <p className="track-role">
+        {t(
+          'We broadly expose K-Culture products across major US commerce platforms and deliver a one-stop shopping experience — optimized for sales communication and CRO.',
+          '미국 주요 커머스 플랫폼에 K-Culture 상품을 폭넓게 노출하고 원스탑 쇼핑 경험을 제공합니다. (세일즈 커뮤니케이션 / CRO 최적화)'
+        )}
+      </p>
+
+      <div className="track-subgroup">
+        <span className="track-subgroup-label">{t('Open Markets · Global Commerce', '오픈마켓 · 글로벌 커머스')}</span>
+        <div className="track-channels">
+          {PLACE_OPEN_MARKETS.map((c) => (
+            <ChannelChip key={c.name} data={c} />
+          ))}
         </div>
       </div>
-      <p className="channel-num">{data.num}</p>
-      <h3 className="channel-title">{t(data.title.en, data.title.ko)}</h3>
-      <p className="channel-desc">{t(data.desc.en, data.desc.ko)}</p>
-      <ul className="channel-list">
-        {data.bullets.map((b, i) => (
-          <li key={i}>{t(b.en, b.ko)}</li>
-        ))}
-      </ul>
+
+      <div className="track-subgroup track-subgroup-d2c">
+        <span className="track-subgroup-label">{t('Direct-to-Consumer (D2C)', '자사몰 (D2C)')}</span>
+        <div className="track-channels">
+          {PLACE_D2C.map((c) => (
+            <ChannelChip key={c.name} data={c} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function Market() {
   const { t } = useLang();
+  const calloutRef = useFadeIn(0.1);
+
   return (
     <section id="market">
       <div className="container">
         <div className="market-header">
-          <div>
-            <span className="sec-label">{t('Market', '시장')}</span>
-            <h2
-              dangerouslySetInnerHTML={{
-                __html: t(
-                  'K-Brand Distribution<br/><em>Two Global Channels</em>',
-                  'K-브랜드 유통<br/><em>두 개의 글로벌 채널</em>'
-                ),
-              }}
-            />
-          </div>
+          <span className="sec-label">{t('Market', '시장')}</span>
+          <h2
+            dangerouslySetInnerHTML={{
+              __html: t(
+                'Into the US Market<br/><em>Two Pillars Carrying K-Culture</em>',
+                '미국 시장에서<br/><em>K-Culture를 전하는 두개의 축</em>'
+              ),
+            }}
+          />
           <p>
             {t(
-              "We deliver outstanding Korean products to customers worldwide through Amazon and ETSY — leveraging each platform's strengths to build the optimal distribution strategy.",
-              '우리는 아마존과 ETSY를 통해 전 세계 고객에게 한국의 우수한 제품을 전달합니다. 각 플랫폼의 특성을 활용하여 최적의 유통 전략을 구현합니다.'
+              'JSTWorks delivers the full spectrum of K-Culture — culture, products, fashion, food — to American consumers along two tracks: Creative (content) and Place (distribution).',
+              'JSTWorks는 미국 소비자를 대상으로 한국의 문화, 상품, 패션, 푸드 등 K-Culture 전 영역을 Creative(콘텐츠)와 Place(유통) 두 개의 트랙으로 전개합니다.'
             )}
           </p>
         </div>
 
-        <div className="channels-grid">
-          {CHANNELS.map((c, i) => (
-            <ChannelCard key={c.name} data={c} index={i} />
-          ))}
+        <div className="tracks-grid">
+          <CreativeTrack />
+          <PlaceTrack />
+        </div>
+
+        <div className="imc-callout" ref={calloutRef}>
+          <strong>
+            {t(
+              '"One consistent message — Creative and Place, operated as one."',
+              '"하나의 일관된 메시지로, Creative와 Place를 통합 운영합니다."'
+            )}
+          </strong>
+          <ul>
+            <li>{t('Driven by IMC (Integrated Marketing Communications) strategy', 'IMC(Integrated Marketing Communications) 전략 기반')}</li>
+            <li>{t('Creative optimizes brand communication; Place optimizes sales communication', 'Creative에서 광고 커뮤니케이션, Place에서 세일즈 커뮤니케이션 최적화')}</li>
+            <li>{t('Authenticity and trend, delivered together to American consumers', '미국 소비자에게 K-Culture의 진정성과 트렌드를 함께 전달')}</li>
+          </ul>
         </div>
       </div>
     </section>

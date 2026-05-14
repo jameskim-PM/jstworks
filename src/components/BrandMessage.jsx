@@ -47,7 +47,7 @@ export default function BrandMessage() {
   return (
     <section id="brand-message">
       <div className="container">
-        <span className="sec-label">{t('Brand Message', '브랜드 메시지')}</span>
+        <span className="sec-label">{t('Creative', '크리에이티브')}</span>
 
         <div className="msg-header">
           <h2

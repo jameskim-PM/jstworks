@@ -32,10 +32,10 @@ export default function BrandVision() {
     <section id="brand-vision">
       <div className="container">
         <div className="vision-header">
-          <span className="sec-label">{t('Brand Vision', '브랜드 비전')}</span>
+          <span className="sec-label">{t('Brand', '브랜드')}</span>
           <h2
             dangerouslySetInnerHTML={{
-              __html: t('Korea Brand<br/>Architecture', '코리아 브랜드<br/>아키텍처'),
+              __html: t('Korea Brand Architecture', '코리아 브랜드 아키텍처'),
             }}
           />
           <p>
