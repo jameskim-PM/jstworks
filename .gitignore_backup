@@ -1,0 +1,22 @@
+# Node / Vite
+node_modules/
+dist/
+.vite/
+*.local
+
+# bkit / Claude Code internal state
+.bkit/
+.claude/
+
+# Legacy static HTML (kept for reference)
+index.legacy.html
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Logs
+*.log
