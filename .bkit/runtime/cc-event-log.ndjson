@@ -26,3 +26,5 @@
 {"hookEvent":"SubagentStop","ccVersion":"2.1.140","sessionId":"d3823eba-be30-4624-a41e-a16ab019937c","timestamp":"2026-05-14T00:53:49.143Z","context":{"agentType":"unknown","status":"completed"}}
 {"hookEvent":"Stop","ccVersion":"2.1.140","sessionId":"d3823eba-be30-4624-a41e-a16ab019937c","timestamp":"2026-05-14T03:05:02.304Z","context":{"agent":"main","skill":null}}
 {"hookEvent":"SubagentStop","ccVersion":"2.1.140","sessionId":"d3823eba-be30-4624-a41e-a16ab019937c","timestamp":"2026-05-14T03:08:06.190Z","context":{"agentType":"unknown","status":"completed"}}
+{"hookEvent":"Stop","ccVersion":"2.1.140","sessionId":"d3823eba-be30-4624-a41e-a16ab019937c","timestamp":"2026-05-14T03:46:31.448Z","context":{"agent":"main","skill":null}}
+{"hookEvent":"Stop","ccVersion":"2.1.140","sessionId":"d3823eba-be30-4624-a41e-a16ab019937c","timestamp":"2026-05-14T03:47:37.787Z","context":{"agent":"main","skill":null}}

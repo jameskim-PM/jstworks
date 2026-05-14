@@ -44,27 +44,39 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="footer-col-label">Korea HQ</p>
-            <p className="footer-address">
-              RM 1218, BLDG C,<br />
-              Munjeong Hyundai Knowledge<br />
-              Industry Center,<br />
-              7, Beobwon-ro 11-gil,<br />
-              Songpa-gu, Seoul, 05836<br />
-              South Korea
-              <span className="country-tag">Seoul, South Korea</span>
-            </p>
+            <p className="footer-col-label">{t('Korea HQ', '한국 본사')}</p>
+            <p
+              className="footer-address"
+              dangerouslySetInnerHTML={{
+                __html:
+                  t(
+                    'RM 1218, BLDG C,<br/>Munjeong Hyundai Knowledge<br/>Industry Center,<br/>7, Beobwon-ro 11-gil,<br/>Songpa-gu, Seoul, 05836<br/>South Korea',
+                    '서울특별시 송파구 법원로 11길 7<br/>문정현대지식산업센터 C동 1218호<br/>(우) 05836<br/>대한민국'
+                  ) +
+                  `<span class="country-tag">${t(
+                    'Seoul, South Korea',
+                    '서울, 대한민국'
+                  )}</span>`,
+              }}
+            />
           </div>
 
           <div>
-            <p className="footer-col-label">U.S. Office</p>
-            <p className="footer-address">
-              17595 Harvard Avenue<br />
-              Suite C - 10042<br />
-              Irvine, CA 92614<br />
-              United States
-              <span className="country-tag">Irvine, California</span>
-            </p>
+            <p className="footer-col-label">{t('U.S. Office', '미국 사무소')}</p>
+            <p
+              className="footer-address"
+              dangerouslySetInnerHTML={{
+                __html:
+                  t(
+                    '17595 Harvard Avenue<br/>Suite C - 10042<br/>Irvine, CA 92614<br/>United States',
+                    '17595 Harvard Avenue<br/>Suite C - 10042<br/>캘리포니아주 어바인, 92614<br/>미국'
+                  ) +
+                  `<span class="country-tag">${t(
+                    'Irvine, California',
+                    '어바인, 캘리포니아'
+                  )}</span>`,
+              }}
+            />
           </div>
         </div>
 
