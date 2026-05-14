@@ -45,7 +45,7 @@ export default function Nav() {
 
         <div className="nav-right">
           <button className="lang-toggle" onClick={toggle}>
-            {lang === 'en' ? 'View is English ›' : '한국어 보기 ›'}
+            {lang === 'ko' ? 'English ›' : 'Korean ›'}
           </button>
           <button
             className={`hamburger${menuOpen ? ' active' : ''}`}
