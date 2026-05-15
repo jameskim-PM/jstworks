@@ -88,7 +88,8 @@ export default function Vision() {
 
           if (!isMobile && !reducedMotion && window.LeaderLine) {
             try {
-              const line = new window.LeaderLine(dotEl, cardEl, {
+              const endAnchor = window.LeaderLine.pointAnchor(cardEl, { x: '0%', y: '60%' });
+              const line = new window.LeaderLine(dotEl, endAnchor, {
                 color:         '#2d5a2e',
                 size:          4,
                 path:          'fluid',

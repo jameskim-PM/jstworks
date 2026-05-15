@@ -290,8 +290,8 @@ button { font-family: inherit; }
 #dot-mid    { top: 51%; left: 55%; }
 #dot-bottom { top: 93%; left: 47%; }
 
-/* LeaderLine SVG 레이어 — 이미지 위로 강제 올림 */
-.leader-line { z-index: 100 !important; }
+/* 레이어 순서: 이미지(1) < 화살표(5) < 카드(10) */
+.leader-line { z-index: 5 !important; }
 
 @media (max-width: 900px) {
   .dot-anchor { display: none; }
