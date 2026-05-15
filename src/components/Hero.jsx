@@ -3,15 +3,10 @@ import { useLang } from '../context/LanguageContext.jsx';
 export default function Hero() {
   const { t } = useLang();
 
-  const scrollToVision = (e) => {
-    e.preventDefault();
-    document.getElementById('brand-vision')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <section id="hero">
       <div className="hero-content">
-        <p className="hero-eyebrow">JOSHUA Tree Works™ · K-GANADA</p>
+        <p className="hero-eyebrow">JOSHUA TREE WORKS · K-GANADA™</p>
         <h1
           className="hero-title-ko"
           dangerouslySetInnerHTML={{
@@ -19,18 +14,15 @@ export default function Hero() {
           }}
         />
         <p className="hero-subtitle">
-          {t('Joshua Tree WORKS —', 'Joshua Tree WORKS는')}
+          {t('JOSHUA TREE WORKS —', 'JOSHUA TREE WORKS는')}
           <br />
           <em>
             {t(
-              "Where Korean soul meets the world's shelf — curating culture, not just products.",
+              "Where Korean soul meets shelves worldwide — curating culture, not just products.",
               '한국의 영혼이 세계의 선반과 만나는 곳 — 제품이 아닌 문화를 큐레이팅합니다.'
             )}
           </em>
         </p>
-        <a href="#brand-vision" className="hero-cta" onClick={scrollToVision}>
-          {t('Discover More', '더 알아보기')}
-        </a>
       </div>
 
       <div className="scroll-indicator">

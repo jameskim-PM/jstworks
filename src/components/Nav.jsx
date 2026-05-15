@@ -31,7 +31,7 @@ export default function Nav() {
     <>
       <nav className={`nav${scrolled ? ' scrolled' : ''}`}>
         <a href="#hero" className="nav-logo" onClick={scrollTo('hero')}>
-          <img src="/JoshuaTreeWorks_Logo.png" alt="Joshua Tree Works" />
+          <img src="/JoshuaTreeWorks_Logo.png" alt="JOSHUA TREE WORKS" />
         </a>
 
         <ul className="nav-links">

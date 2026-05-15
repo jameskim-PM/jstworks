@@ -5,7 +5,7 @@ const CONTACT_EMAIL = 'info@jstworks.com';
 
 export default function Quote() {
   const { t, lang } = useLang();
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', company: '', email: '', message: '' });
   const [feedback, setFeedback] = useState({
     text: '',
     error: false,
@@ -19,12 +19,13 @@ export default function Quote() {
   const submit = async (e) => {
     e.preventDefault();
     const name = form.name.trim();
+    const company = form.company.trim();
     const email = form.email.trim();
     const message = form.message.trim();
 
     if (!name || !email || !message) {
       setFeedback({
-        text: lang === 'ko' ? '모든 항목을 입력해주세요.' : 'Please fill out every field.',
+        text: lang === 'ko' ? '필수 항목을 입력해주세요.' : 'Please fill out the required fields.',
         error: true,
         fallbackHref: '',
         copied: false,
@@ -46,9 +47,10 @@ export default function Quote() {
       return;
     }
 
-    const subject = `[JSTWORKS Inquiry] ${name}`;
+    const subject = `[JSTWORKS Inquiry] ${name}${company ? ` (${company})` : ''}`;
     const body =
       `Name: ${name}\n` +
+      `Company: ${company || '-'}\n` +
       `Email: ${email}\n\n` +
       `${message}\n`;
 
@@ -57,7 +59,6 @@ export default function Quote() {
       `?subject=${encodeURIComponent(subject)}` +
       `&body=${encodeURIComponent(body)}`;
 
-    // 메일 클라이언트가 안 떴을 때를 대비해, 본문 + 메일 주소를 클립보드에 복사
     let copied = false;
     try {
       const clipText =
@@ -72,7 +73,6 @@ export default function Quote() {
       // 클립보드 접근 실패는 무시
     }
 
-    // mailto 트리거 — window.location.href 가 가장 호환성이 좋음
     try {
       window.location.href = mailtoLink;
     } catch {
@@ -97,80 +97,125 @@ export default function Quote() {
   return (
     <section id="quote">
       <div className="container">
-        <div className="quote-inner">
-          <div className="quote-text-col">
-            <blockquote>
+        <div className="quote-hero">
+          <h2 className="quote-headline">JOSHUA TREE WORKS</h2>
+          <div className="quote-body">
+            <p>
               {t(
-                'Lifestyle Variety is the steepest-growth lane in U.S. retail today — and a brand that pairs affordable premium with a real cultural soul is positioned to lead it.',
-                '라이프스타일 버라이어티는 오늘날 미국 소매업에서 가장 가파른 성장 구간이며 — 합리적 프리미엄과 진정한 문화적 영혼을 결합한 브랜드가 이를 이끌 위치에 있습니다.'
-              )}
-            </blockquote>
-            <div className="quote-attribution">
-              <strong>{t('Internal Thesis', '내부 테시스')}</strong>
-              <span>{t('Korea Strategy · Joshua Tree Works', '한국 전략 · Joshua Tree Works')}</span>
-            </div>
-          </div>
-
-          <div className="inquiry-form-col">
-            <h3>{t('Send an Inquiry', '문의하기')}</h3>
-            <p className="inquiry-intro">
-              {t('Reach us directly at ', '문의는 ')}
-              <a className="inquiry-email-link" href={`mailto:${CONTACT_EMAIL}`}>
-                {CONTACT_EMAIL}
-              </a>
-              {t(
-                ' — or fill out the form below and we will reply shortly.',
-                ' 로 직접 보내주시거나, 아래 양식을 작성해주시면 빠르게 답변드리겠습니다.'
+                'Design the future of lifestyle with us.',
+                '함께 라이프스타일의 미래를 설계하세요.'
               )}
             </p>
-
-            <form className="inquiry-form" onSubmit={submit} noValidate>
-              <div className="form-row">
-                <label htmlFor="iName">{t('Name', '이름')}</label>
-                <input
-                  id="iName" name="name" type="text" required autoComplete="name"
-                  value={form.name} onChange={update('name')}
-                />
-              </div>
-              <div className="form-row">
-                <label htmlFor="iEmail">{t('Email', '이메일')}</label>
-                <input
-                  id="iEmail" name="email" type="email" required autoComplete="email"
-                  value={form.email} onChange={update('email')}
-                />
-              </div>
-              <div className="form-row">
-                <label htmlFor="iMessage">{t('Message', '문의 내용')}</label>
-                <textarea
-                  id="iMessage" name="message" rows={5} required
-                  value={form.message} onChange={update('message')}
-                />
-              </div>
-              <button type="submit" className="btn-primary">
-                {t('Send Inquiry', '문의 보내기')}
-              </button>
-
-              <div
-                className={`form-feedback${feedback.error ? ' error' : ''}`}
-                aria-live="polite"
-              >
-                <p>{feedback.text}</p>
-                {feedback.fallbackHref && (
-                  <a
-                    className="inquiry-fallback-link"
-                    href={feedback.fallbackHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t(
-                      `Open mail to ${CONTACT_EMAIL}`,
-                      `${CONTACT_EMAIL} 으로 메일 열기`
-                    )}
-                  </a>
-                )}
-              </div>
-            </form>
+            <p>
+              {t(
+                'We set a new standard by combining the affordable premium the market demands with genuine brand value.',
+                '시장이 요구하는 합리적 프리미엄과 진정한 브랜드 가치를 결합하여 새로운 기준을 만듭니다.'
+              )}
+            </p>
+            <p>
+              {t(
+                'We welcome inquiries from partners who share the JOSHUA TREE WORKS vision and are ready to grow together.',
+                'JOSHUA TREE WORKS의 비전에 공감하며 동반 성장을 이뤄낼 파트너사의 문의를 기다립니다.'
+              )}
+            </p>
           </div>
+          <div className="quote-attribution">
+            <strong>{t('Core Thesis', '핵심 명제')}</strong>
+            <span>{t('JOSHUA TREE WORKS', 'JOSHUA TREE WORKS')}</span>
+          </div>
+        </div>
+
+        <div className="inquiry-block">
+          <h3>{t('Send an Inquiry', '문의하기')}</h3>
+
+          <form className="inquiry-form" onSubmit={submit} noValidate>
+            <div className="form-row-trio">
+              <div className="form-row">
+                <input
+                  id="iName"
+                  name="name"
+                  type="text"
+                  required
+                  autoComplete="name"
+                  placeholder={t('Name [Title included]', '성명 [직함포함]')}
+                  value={form.name}
+                  onChange={update('name')}
+                />
+              </div>
+              <div className="form-row">
+                <input
+                  id="iCompany"
+                  name="company"
+                  type="text"
+                  autoComplete="organization"
+                  placeholder={t('Company', '회사명')}
+                  value={form.company}
+                  onChange={update('company')}
+                />
+              </div>
+              <div className="form-row">
+                <input
+                  id="iEmail"
+                  name="email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder={t('Email', '이메일')}
+                  value={form.email}
+                  onChange={update('email')}
+                />
+              </div>
+            </div>
+
+            <div className="form-row form-row-full">
+              <textarea
+                id="iMessage"
+                name="message"
+                rows={5}
+                required
+                placeholder={t('Message', '문의 내용')}
+                value={form.message}
+                onChange={update('message')}
+              />
+            </div>
+
+            <div className="form-actions">
+              <button type="submit" className="btn-primary">
+                {t('Send', '보내기')}
+              </button>
+            </div>
+
+            <div
+              className={`form-feedback${feedback.error ? ' error' : ''}`}
+              aria-live="polite"
+            >
+              <p>{feedback.text}</p>
+              {feedback.fallbackHref && (
+                <a
+                  className="inquiry-fallback-link"
+                  href={feedback.fallbackHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t(
+                    `Open mail to ${CONTACT_EMAIL}`,
+                    `${CONTACT_EMAIL} 으로 메일 열기`
+                  )}
+                </a>
+              )}
+            </div>
+          </form>
+
+          <p className="inquiry-intro">
+            {t('Reach us directly at ', '문의는 ')}
+            <a className="inquiry-email-link" href={`mailto:${CONTACT_EMAIL}`}>
+              {CONTACT_EMAIL}
+            </a>
+            {t(
+              ' — or fill out the form above and we will reply shortly.',
+              ' 로 직접 보내주시거나, 위 양식을 작성해주시면 빠르게 답변드리겠습니다.'
+            )}
+          </p>
         </div>
       </div>
     </section>

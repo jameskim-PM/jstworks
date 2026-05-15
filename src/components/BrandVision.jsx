@@ -9,7 +9,7 @@ const CARDS = [
   { num: 'Dis. 05', icon: '⬚', title: 'K-Tech',    tag: 'Tech',          en: 'Hangeul-designed tech gadgets and high-quality accessories.',         ko: '한글 디자인 테크 가젯과 고품질 액세서리.' },
   { num: 'Dis. 06', icon: '◈', title: 'K-Apparel', tag: 'Fashion',       en: 'Trend-driven fashion, socks, and heritage-motif streetwear.',         ko: '트렌드 주도형 패션, 양말 및 헤리티지 모티프 스트리트웨어.' },
   { num: 'Dis. 07', icon: '≋', title: 'K-Scent',   tag: 'Wellness',      en: 'Sensory diffusers and perfumes inspired by Korean nature.',           ko: '한국 자연에서 영감을 받은 센서리 디퓨저와 향수.' },
-  { num: 'Dis. 08', icon: '✾', title: 'K-Pet',     tag: 'Lifestyle',     en: "Premium lifestyle supplies for the evolving 'Petcomomy'.",            ko: "진화하는 '펫코노미'를 위한 프리미엄 라이프스타일 용품." },
+  { num: 'Dis. 08', icon: '✾', title: 'K-Pet',     tag: 'Lifestyle',     en: "Premium lifestyle supplies for the evolving 'Pet Economy'.",            ko: "진화하는 '펫코노미'를 위한 프리미엄 라이프스타일 용품." },
 ];
 
 function VCard({ data, index }) {

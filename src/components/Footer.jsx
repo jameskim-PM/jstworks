@@ -22,7 +22,7 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <div className="footer-logo">
-              <img src="/JoshuaTreeWorks_FL_White.png" alt="Joshua Tree Works" />
+              <img src="/JoshuaTreeWorks_FL_White.png" alt="JOSHUA TREE WORKS" />
             </div>
             <p className="footer-desc">
               {t(
@@ -62,26 +62,20 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="footer-col-label">{t('U.S. Office', '미국 사무소')}</p>
+            <p className="footer-col-label">{t('U.S. Office', '미국 법인')}</p>
             <p
               className="footer-address"
               dangerouslySetInnerHTML={{
                 __html:
-                  t(
-                    '17595 Harvard Avenue<br/>Suite C - 10042<br/>Irvine, CA 92614<br/>United States',
-                    '17595 Harvard Avenue<br/>Suite C - 10042<br/>캘리포니아주 어바인, 92614<br/>미국'
-                  ) +
-                  `<span class="country-tag">${t(
-                    'Irvine, California',
-                    '어바인, 캘리포니아'
-                  )}</span>`,
+                  'Joshua Tree Works LTD<br/>1234 Main Street, Suite 200<br/>Irvine, CA 92618<br/>USA<br/>EIN #: 41-5089467' +
+                  '<span class="country-tag">Irvine, California</span>',
               }}
             />
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Joshua Tree Works. All rights reserved.</p>
+          <p>© 2026 JOSHUA TREE WORKS. All rights reserved.</p>
           <a href="mailto:info@jstworks.com" className="footer-email">
             info@jstworks.com
           </a>

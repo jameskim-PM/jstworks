@@ -27,12 +27,27 @@ const CREATIVE_CHANNELS = [
     icon: '/icons/pinterest_logo.png',
     desc: { en: 'Visual discovery · mood boards · Korean lifestyle inspiration',  ko: '비주얼 디스커버리 · 무드보드 · 한국 라이프스타일 영감' },
   },
+  {
+    name: 'Discord',
+    icon: '/icons/Discord_Logo.png',
+    desc: { en: 'Exclusive hub for loyal fans',                                    ko: '충성 팬용 비공개 아지트' },
+  },
+  {
+    name: 'Twitch',
+    icon: '/icons/Twitch_Logo.png',
+    desc: { en: 'Live, real-time engagement',                                      ko: '현장감 넘치는 실시간 소통' },
+  },
+  {
+    name: 'Reddit',
+    icon: '/icons/Reddit_Logo.svg',
+    desc: { en: 'Interest-based niche targeting',                                  ko: '관심사 기반 니치 타겟팅' },
+  },
 ];
 
 const PLACE_OPEN_MARKETS = [
   {
     name: 'Amazon',
-    icon: '/icons/Amazon_logo.svg',
+    icon: '/icons/Amazon_Logo_White.png',
     desc: { en: "America's largest commerce platform · core revenue channel", ko: '미국 최대 커머스 플랫폼 · 핵심 매출 채널' },
   },
   {
@@ -42,7 +57,7 @@ const PLACE_OPEN_MARKETS = [
   },
   {
     name: 'TikTok Shop Center',
-    icon: '/icons/TikTok Shop icon.png',
+    icon: '/icons/TikTok-Shop_Logo_png.png',
     desc: { en: 'Content-commerce live selling',                              ko: '콘텐츠-커머스 연계 라이브 셀링' },
   },
   {
@@ -59,7 +74,7 @@ const PLACE_OPEN_MARKETS = [
 
 const PLACE_D2C = [
   {
-    name: 'K-GANADA',
+    name: 'K-GANADA™',
     icon: '/icons/K-GANADA_LOGO.png',
     desc: { en: 'Shopify-based proprietary brand store', ko: 'Shopify 기반 자체 브랜드 스토어' },
   },
@@ -94,8 +109,8 @@ function CreativeTrack() {
       <h3 className="track-title">{t('Content & Communication', '콘텐츠 & 커뮤니케이션')}</h3>
       <p className="track-role">
         {t(
-          'Creative work delivers the appeal of K-Culture and draws customers to K-GANADA — optimized for brand communication.',
-          '창작물을 통해 K-Culture의 매력을 전달하고, 고객을 K-GANADA로 유인합니다. (광고 커뮤니케이션 최적화)'
+          'Creative work delivers the appeal of K-Culture and draws customers to K-GANADA™ — optimized for brand communication.',
+          '창작물을 통해 K-Culture의 매력을 전달하고, 고객을 K-GANADA™로 유인합니다. (광고 커뮤니케이션 최적화)'
         )}
       </p>
       <div className="track-channels">
@@ -182,7 +197,7 @@ export default function Market() {
           <ul>
             <li>{t('Driven by IMC (Integrated Marketing Communications) strategy', 'IMC(Integrated Marketing Communications) 전략 기반')}</li>
             <li>{t('Creative optimizes brand communication; Place optimizes sales communication', 'Creative에서 광고 커뮤니케이션, Place에서 세일즈 커뮤니케이션 최적화')}</li>
-            <li>{t('Authenticity and trend, delivered together to American consumers', '미국 소비자에게 K-Culture의 진정성과 트렌드를 함께 전달')}</li>
+            <li>{t("Delivering K-Culture's authenticity and trends to American consumers", '미국 소비자에게 K-Culture의 진정성과 트렌드를 함께 전달')}</li>
           </ul>
         </div>
       </div>

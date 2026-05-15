@@ -3,7 +3,11 @@
     "allow": [
       "Bash(git remote *)",
       "Bash(gh auth *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(curl -s \"http://localhost:5174/src/components/Vision.jsx\")",
+      "Bash(curl -s http://localhost:5174/)"
     ]
   }
 }
